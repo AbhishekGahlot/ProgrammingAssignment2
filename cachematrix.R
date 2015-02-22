@@ -10,20 +10,20 @@
 ## setinverse sets inverse of matrix
 
 makeCacheMatrix <- function(x = matrix()) {
-  inverseMatrix <- NULL
-  set <- function(newmatrix){
-    #Checks if same matrix is passed via set using identical function
-    if (!identical(newmatrix, x)){
-      x <<- newmatrix
-      inverseMatrix <<- NULL
+    inverseMatrix <- NULL
+    set <- function(newmatrix){
+      #Checks if same matrix is passed via set using identical function
+      if (!identical(newmatrix, x)){
+        x <<- newmatrix
+        inverseMatrix <<- NULL
+      }
     }
-  }
-  get <- function() x
-  getInverse <- function() inverseMatrix
-  setInverse <- function(x) inverseMatrix <<- solve(x)
-  list(set = set, get = get,
-       setInverse = setInverse,
-       getInverse = getInverse)
+    get <- function() x
+    getInverse <- function() inverseMatrix
+    setInverse <- function(x) inverseMatrix <<- solve(x)
+    list(set = set, get = get,
+         setInverse = setInverse,
+         getInverse = getInverse)
 }
 
 
@@ -35,17 +35,16 @@ makeCacheMatrix <- function(x = matrix()) {
 ## set function of object is used to set its inverse
 
 cacheSolve <- function(x, ...) {
-  
-  ## Return a matrix that is the inverse of 'x'
-  inverseMatrix <- x$getInverse()
-  ## Checks if inverse already exist then return it
-  if(!is.null(inverseMatrix)) {
-    message("getting cached data")
-    return(inverseMatrix)
-  }
-  get_matrix <- x$get()
-  inverse <- solve(get_matrix)
-  x$setInverse(inverse)
-  inverse
+    ## Return a matrix that is the inverse of 'x'
+    inverseMatrix <- x$getInverse()
+    ## Checks if inverse already exist then return it
+    if(!is.null(inverseMatrix)) {
+      message("getting cached data")
+      return(inverseMatrix)
+    }
+    get_matrix <- x$get()
+    inverse <- solve(get_matrix)
+    x$setInverse(inverse)
+    inverse
 }
 
